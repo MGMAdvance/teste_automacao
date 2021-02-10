@@ -14,8 +14,9 @@ public class Register {
         this.browser = new ChromeDriver();
     }
 
-    @Test
     public void registrarFormulario(){
+        System.out.println("Primeiro Cenario - Iniciando");
+
         this.browser.get("http://demo.automationtesting.in/");
 
         this.browser.findElement(new By.ByXPath("//*[@id=\"btn2\"]")).click();
@@ -96,10 +97,8 @@ public class Register {
 
         /* Country */
         try{
-            this.browser.findElement(new By.ByXPath("//*[@id=\"countries\"]"))
-                    .click();
-            this.browser.findElement(new By.ByXPath("//*[@id=\"countries\"]/option[33]"))
-                    .click();
+            Select countryBox = new Select(this.browser.findElement(new By.ByXPath("//*[@id=\"countries\"]")));
+            countryBox.selectByVisibleText("Brazil");
         }catch (Exception E){
             System.out.println("Falha ao escolher o pais");
         }
@@ -141,5 +140,56 @@ public class Register {
 
         /* Submit */
         this.browser.findElement(new By.ByXPath("//*[@id=\"submitbtn\"]")).click();
+
+        System.out.println("Primeiro Cenario - Finalizado");
+    }
+
+    public void preenchendoFrames(){
+        System.out.println("Segundo Cenario - Iniciando");
+
+        this.browser.get("http://demo.automationtesting.in/Frames.html");
+
+        try{
+            this.browser.switchTo().frame("singleframe");
+
+            this.browser.findElement(new By.ByXPath("/html/body/section/div/div/div/input"))
+                    .sendKeys("Está funcionando");
+        }catch (Exception E){
+            System.out.println("Falha ao tentar escrever no Frame");
+        }
+
+        System.out.println("Segundo Cenario - Finalizado");
+    }
+
+    public void widgetsDataNascimento(){
+        System.out.println("Terceiro Cenario - Iniciando");
+
+        this.browser.get("http://demo.automationtesting.in/Datepicker.html");
+
+        /* DatePicker */
+        try{
+            this.browser.findElement(new By.ByXPath("//*[@id=\"datepicker1\"]"))
+                    .click();
+
+        }catch(Exception E){
+            System.out.println("Falha ao tentar usar o primeiro DatePicker");
+        }
+
+        /* DatePicker Digitado */
+        try{
+            this.browser.findElement(new By.ByXPath("//*[@id=\"datepicker2\"]"))
+                    .sendKeys("11/03/1998");
+        }catch(Exception E){
+            System.out.println("Falha ao digitar a data no segundo DatePicker");
+        }
+
+        System.out.println("Terceiro Cenario - Finalizado");
+    }
+
+    @Test
+    public void sequenciaAcoes(){
+        this.registrarFormulario();
+        this.preenchendoFrames();
+        this.widgetsDataNascimento();
     }
 }
