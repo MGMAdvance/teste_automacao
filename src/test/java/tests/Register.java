@@ -3,8 +3,13 @@ package tests;
 import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.interactions.Action;
+import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class Register {
     WebDriver browser;
@@ -14,12 +19,18 @@ public class Register {
         this.browser = new ChromeDriver();
     }
 
-    public void registrarFormulario(){
+    public void fecharNavegador(){
+        this.browser.quit();
+    }
+
+    public void registrarFormulario() throws InterruptedException {
         System.out.println("Primeiro Cenario - Iniciando");
 
         this.browser.get("http://demo.automationtesting.in/");
 
         this.browser.findElement(new By.ByXPath("//*[@id=\"btn2\"]")).click();
+
+        Thread.sleep(3000);
 
         /* Full Name */
         try {
@@ -144,10 +155,12 @@ public class Register {
         System.out.println("Primeiro Cenario - Finalizado");
     }
 
-    public void preenchendoFrames(){
+    public void preenchendoFrames() throws InterruptedException {
         System.out.println("Segundo Cenario - Iniciando");
 
         this.browser.get("http://demo.automationtesting.in/Frames.html");
+
+        Thread.sleep(3000);
 
         try{
             this.browser.switchTo().frame("singleframe");
@@ -161,16 +174,27 @@ public class Register {
         System.out.println("Segundo Cenario - Finalizado");
     }
 
-    public void widgetsDataNascimento(){
+    public void widgetsDataNascimento() throws InterruptedException {
         System.out.println("Terceiro Cenario - Iniciando");
 
         this.browser.get("http://demo.automationtesting.in/Datepicker.html");
+
+        Thread.sleep(3000);
 
         /* DatePicker */
         try{
             this.browser.findElement(new By.ByXPath("//*[@id=\"datepicker1\"]"))
                     .click();
 
+            while( !this.browser.findElement(new By.ByXPath("//*[@id=\"ui-datepicker-div\"]/div/div/span[2]")).getText().equals("1998")){
+                this.browser.findElement(new By.ByXPath("//*[@id=\"ui-datepicker-div\"]/div/a[1]/span")).click();
+            }
+
+            while(!this.browser.findElement(new By.ByXPath("//*[@id=\"ui-datepicker-div\"]/div/div/span[1]")).getText().equals("November")){
+                this.browser.findElement(new By.ByXPath("//*[@id=\"ui-datepicker-div\"]/div/a[1]/span")).click();
+            }
+
+            this.browser.findElement(new By.ByXPath("//*[@id=\"ui-datepicker-div\"]/table/tbody/tr[1]/td[3]/a")).click();
         }catch(Exception E){
             System.out.println("Falha ao tentar usar o primeiro DatePicker");
         }
@@ -186,10 +210,34 @@ public class Register {
         System.out.println("Terceiro Cenario - Finalizado");
     }
 
+    public void slider() throws InterruptedException {
+        System.out.println("Quarto Cenario - Iniciando");
+
+        this.browser.get("http://demo.automationtesting.in/Slider.html");
+
+        Thread.sleep(3000);
+
+        /* Slider */
+        try{
+            WebElement slider = this.browser.findElement(new By.ByXPath("//*[@id=\"slider\"]"));
+            Actions move = new Actions(this.browser);
+            Action action = (Action) move.dragAndDropBy(slider, 1, 0).build();
+            action.perform();
+        }catch(Exception E){
+            System.out.println("Falha ao tentar usar o Slider");
+        }
+
+        System.out.println("Quarto Cenario - Finalizado");
+    }
     @Test
-    public void sequenciaAcoes(){
+    public void sequenciaAcoes() throws InterruptedException {
         this.registrarFormulario();
         this.preenchendoFrames();
         this.widgetsDataNascimento();
+        this.slider();
+
+        Thread.sleep(3000);
+
+        this.fecharNavegador();
     }
 }
