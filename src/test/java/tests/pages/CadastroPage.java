@@ -55,10 +55,16 @@ public class CadastroPage {
         dataNascimento();
         senha();
         enviar();
+        fecharNavegador();
     }
 
     public void navegar(){
         browser.ir(cadastroUrl);
+        browser.clicar(cadastroBtnSkip);
+    }
+
+    private void fecharNavegador(){
+        browser.fechar();
     }
 
     private void nomeCompleto(){
@@ -91,6 +97,8 @@ public class CadastroPage {
         browser.clicar(cadastroSelectLanguagesEnglish);
         browser.clicar(cadastroSelectLanguagesPortuguese);
         browser.clicar(cadastroSelectLanguagesJapanese);
+
+        browser.clicar(cadastroInputPhone);
     }
 
     private void habilidades(){

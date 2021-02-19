@@ -9,10 +9,11 @@ import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.Select;
 
 public class Dsl {
-    private WebDriver browser = new ChromeDriver();
+    private WebDriver browser;
 
     public Dsl(){
         System.setProperty("webdriver.chrome.driver", "C:\\Users\\mathe\\Desktop\\teste\\chrome\\chromedriver.exe");
+        browser = new ChromeDriver();
     }
 
     /**
@@ -20,7 +21,12 @@ public class Dsl {
      * @param url
      */
     public void ir(String url){
-        browser.get(url);
+        try {
+            browser.get(url);
+            Thread.sleep(3000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 
     /**

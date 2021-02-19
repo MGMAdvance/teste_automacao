@@ -15,10 +15,15 @@ public class FramePage {
     public void preencherFrame(){
         navegar();
         frame();
+        fecharNavegador();
     }
 
     public void navegar(){
         browser.ir(frameUrl);
+    }
+
+    private void fecharNavegador(){
+        browser.fechar();
     }
 
     private void frame(){

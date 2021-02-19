@@ -13,10 +13,10 @@ public class DatepickerPage {
 
     private By datePickerTextYear = new By.ByXPath("//span[@class='ui-datepicker-year']");
     private By datePickerTextMonth = new By.ByXPath("//span[@class='ui-datepicker-month']");
-    private By datePickerTextArrow = new By.ByXPath("//a[@class='ui-datepicker-prev ui-corner-all']");
+    private By datePickerTextArrow = new By.ByXPath("//a[@data-handler='prev']");
 
     private By datePickerTextDay = new By.ByXPath("//a[@class='ui-state-default'][text()='3']");
-    private String datePickerStringMonth = "11";
+    private String datePickerStringMonth = "November";
     private String datePickerStringYear = "1998";
 
     private By datePickerInput = new By.ByXPath("//input[@id='datepicker2']");
@@ -26,10 +26,15 @@ public class DatepickerPage {
         navegar();
         datePickerManual();
         datePickerDigitado();
+        fecharNavegador();
     }
 
     public void navegar(){
         browser.ir(datePickerUrl);
+    }
+
+    private void fecharNavegador(){
+        browser.fechar();
     }
 
     private void datePickerManual(){
