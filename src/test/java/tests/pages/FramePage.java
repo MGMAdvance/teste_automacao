@@ -1,23 +1,25 @@
 package tests.pages;
 
+import core.Dsl;
 import org.openqa.selenium.By;
 
 public class FramePage {
 
-    System.out.println("Segundo Cenario - Iniciando");
+    private Dsl browser = new Dsl();
 
-        this.browser.get("http://demo.automationtesting.in/Frames.html");
+    private String frameElement = "singleframe";
+    private By frameInput = new By.ByXPath("//input[@type='text']");
 
-        Thread.sleep(3000);
-
-        try{
-        this.browser.switchTo().frame("singleframe");
-
-        this.browser.findElement(new By.ByXPath("/html/body/section/div/div/div/input"))
-                .sendKeys("Está funcionando");
-    }catch (Exception E){
-        System.out.println("Falha ao tentar escrever no Frame");
+    public void preencherFrame(){
+        navegar();
+        frame();
     }
 
-        System.out.println("Segundo Cenario - Finalizado");
+    public void navegar(){
+        browser.ir("http://demo.automationtesting.in/Frames.html");
+    }
+
+    private void frame(){
+        browser.frame(frameElement, frameInput, "Está funcionando");
+    }
 }

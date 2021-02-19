@@ -21,6 +21,13 @@ public class Dsl {
     }
 
     /**
+     * Fechar o navegador
+     */
+    public void fechar(){
+        browser.quit();
+    }
+
+    /**
      * Clicar em um determinado elemento.
      * @param by Caminho do elemento.
      */
@@ -47,8 +54,16 @@ public class Dsl {
         select.selectByVisibleText(texto);
     }
 
-    public void frame(By by, String texto){
+    /**
+     * Acessar um IFrame
+     * @param frame Elemento do frame.
+     * @param by Caminho do elemento.
+     * @param texto Texto a ser inserido dentro do frame.
+     */
+    public void frame(String frame, By by, String texto){
+        browser.switchTo().frame(frame);
 
+        browser.findElement(by).sendKeys(texto);
     }
 
     public void slider(){
