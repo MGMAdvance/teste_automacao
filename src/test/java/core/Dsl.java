@@ -50,7 +50,7 @@ public class Dsl {
      * @param texto Texto referente a opção.
      */
     public void selecao(By by, String texto){
-        Select select = new Select(browser.findElement(by);
+        Select select = new Select(browser.findElement(by));
         select.selectByVisibleText(texto);
     }
 
