@@ -1,39 +1,48 @@
 package tests.pages;
 
+import core.Dsl;
 import org.openqa.selenium.By;
 
 public class DatepickerPage {
-    System.out.println("Terceiro Cenario - Iniciando");
 
-        this.browser.get("http://demo.automationtesting.in/Datepicker.html");
+    private Dsl browser = new Dsl();
 
-        Thread.sleep(3000);
+    private String datePickerUrl = "http://demo.automationtesting.in/Datepicker.html";
 
-    /* DatePicker */
-        try{
-        this.browser.findElement(new By.ByXPath("//*[@id=\"datepicker1\"]"))
-                .click();
+    private By datePickerElement = new By.ByXPath("//img[@class='imgdp']");
 
-        while( !this.browser.findElement(new By.ByXPath("//*[@id=\"ui-datepicker-div\"]/div/div/span[2]")).getText().equals("1998")){
-            this.browser.findElement(new By.ByXPath("//*[@id=\"ui-datepicker-div\"]/div/a[1]/span")).click();
-        }
+    private By datePickerTextYear = new By.ByXPath("//span[@class='ui-datepicker-year']");
+    private By datePickerTextMonth = new By.ByXPath("//span[@class='ui-datepicker-month']");
+    private By datePickerTextArrow = new By.ByXPath("//a[@class='ui-datepicker-prev ui-corner-all']");
 
-        while(!this.browser.findElement(new By.ByXPath("//*[@id=\"ui-datepicker-div\"]/div/div/span[1]")).getText().equals("April")){
-            this.browser.findElement(new By.ByXPath("//*[@id=\"ui-datepicker-div\"]/div/a[1]/span")).click();
-        }
+    private By datePickerTextDay = new By.ByXPath("//a[@class='ui-state-default'][text()='3']");
+    private String datePickerStringMonth = "11";
+    private String datePickerStringYear = "1998";
 
-        this.browser.findElement(new By.ByXPath("//*[@id=\"ui-datepicker-div\"]/table/tbody/tr[2]/td[2]/a")).click();
-    }catch(Exception E){
-        System.out.println("Falha ao tentar usar o primeiro DatePicker");
+    private By datePickerInput = new By.ByXPath("//input[@id='datepicker2']");
+    private String datePickerBirth = "03/11/1998";
+
+    public void utilizarDatePicker(){
+        navegar();
+        datePickerManual();
+        datePickerDigitado();
     }
 
-    /* DatePicker Digitado */
-        try{
-        this.browser.findElement(new By.ByXPath("//*[@id=\"datepicker2\"]"))
-                .sendKeys("05/04/1993");
-    }catch(Exception E){
-        System.out.println("Falha ao digitar a data no segundo DatePicker");
+    public void navegar(){
+        browser.ir(datePickerUrl);
     }
 
-        System.out.println("Terceiro Cenario - Finalizado");
+    private void datePickerManual(){
+        browser.datePicker( datePickerElement,
+                            datePickerTextYear,
+                            datePickerTextMonth,
+                            datePickerTextArrow,
+                            datePickerTextDay,
+                            datePickerStringMonth,
+                            datePickerStringYear );
+    }
+
+    private void datePickerDigitado(){
+        browser.escrever(datePickerInput, datePickerBirth);
+    }
 }

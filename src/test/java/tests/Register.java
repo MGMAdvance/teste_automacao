@@ -15,6 +15,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import tests.pages.CadastroPage;
+import tests.pages.DatepickerPage;
 import tests.pages.FramePage;
 
 public class Register {
@@ -36,7 +37,8 @@ public class Register {
     }
 
     public void widgetsDataNascimento() throws InterruptedException {
-
+        DatepickerPage datePicker = new DatepickerPage();
+        datePicker.utilizarDatePicker();
     }
 
     public void slider() throws InterruptedException {

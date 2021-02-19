@@ -66,6 +66,30 @@ public class Dsl {
         browser.findElement(by).sendKeys(texto);
     }
 
+    /**
+     * Utilizar o DatePicker
+     * @param by Caminho do elemento.
+     * @param byAno Caminho do elemento onde fica identificado o ano.
+     * @param byMes Caminho do elemento onde fica identificado o mes.
+     * @param bySeta Caminho do elemento onde fica posiciondo a seta do calendario.
+     * @param byDia Caminho do elemento onde fica a Dia de nascimento.
+     * @param mes Mes de nascimento.
+     * @param ano Ano de nascimento.
+     */
+    public void datePicker(By by, By byAno, By byMes, By bySeta, By byDia, String mes, String ano){
+        browser.findElement( by ).click();
+
+        while(!browser.findElement( byAno ).getText().equals( ano )){
+            browser.findElement( bySeta ).click();
+        }
+
+        while(!browser.findElement( byMes ).getText().equals( mes )){
+            browser.findElement( bySeta ).click();
+        }
+
+        browser.findElement( byDia ).click();
+    }
+
     public void slider(){
 
     }
