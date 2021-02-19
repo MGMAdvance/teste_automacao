@@ -2,7 +2,10 @@ package core;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.interactions.Action;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.Select;
 
 public class Dsl {
@@ -90,7 +93,11 @@ public class Dsl {
         browser.findElement( byDia ).click();
     }
 
-    public void slider(){
+    public void slider(By by, int porcentagem){
+        WebElement slider = browser.findElement(by);
 
+        Actions move = new Actions(browser);
+        Action action = (Action) move.dragAndDropBy(slider, 1, 0).build();
+        action.perform();
     }
 }
