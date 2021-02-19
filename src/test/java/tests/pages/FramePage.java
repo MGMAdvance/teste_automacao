@@ -7,6 +7,8 @@ public class FramePage {
 
     private Dsl browser = new Dsl();
 
+    private String frameUrl = "http://demo.automationtesting.in/Frames.html";
+
     private String frameElement = "singleframe";
     private By frameInput = new By.ByXPath("//input[@type='text']");
 
@@ -16,7 +18,7 @@ public class FramePage {
     }
 
     public void navegar(){
-        browser.ir("http://demo.automationtesting.in/Frames.html");
+        browser.ir(frameUrl);
     }
 
     private void frame(){
